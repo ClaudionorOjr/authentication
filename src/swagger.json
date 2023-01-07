@@ -1,0 +1,307 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Authentication API",
+    "description": "API to create and authenticate, through JWT, common users and administrators.",
+    "_comment": "\"termsOfService\": \"link for terms\"",
+    "version": "1.0.0",
+    "contact": {
+      "email": "claudionorojr@hotmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create a new user",
+        "description": "Pass a name, surname, email, password, phone and optionally an avatarUrl to create a new user.",
+        "_comment": "\"security\": [{ \"bearerAuth\": [] }]",
+        "requestBody": {
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "surname", "email", "password", "phone"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "surname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "avatarUrl": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "John",
+                  "surname": "Doe",
+                  "email": "johndoe@gmail.com",
+                  "password": "123456",
+                  "phone": "84988889999",
+                  "avatarUrl": "http://avatar.png"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created user.",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                },
+                "example": {
+                  "id": "clad15wll0025356mex18hag4",
+                  "name": "John",
+                  "surname": "Doe",
+                  "email": "johndoe@gmail.com",
+                  "password": "123456",
+                  "phone": "84988889999",
+                  "avatarUrl": "http://avatar.png"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User does exists.",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "User already exists!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/auth": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Authenticate user.",
+        "description": "Pass an email and password to authenticate the user.",
+        "requestBody": {
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/definitions/Login",
+                "example": {
+                  "email": "johndoe@gmail.com",
+                  "password": "123456"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Passed wrong informations.",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "E-mail or password incorrect!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/auth": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Authenticate admin.",
+        "description": "Pass an email and password to authenticate the admin.",
+        "requestBody": {
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/definitions/Login"
+              },
+              "example": {
+                "email": "admin@gmail.com",
+                "password": "12345678"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Passed wrong informations.",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "E-mail or password incorrect!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securitySchemes": {
+    "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "$ref": "#/definitions/User"
+      },
+      "Admin": {
+        "$ref": "#/definitions/Admin"
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": ["name", "surname", "email", "password", "phone"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "cuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "googleId": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "Date"
+        }
+      }
+    },
+    "Admin": {
+      "type": "object",
+      "required": ["name", "surname", "email", "password"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "cuid"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

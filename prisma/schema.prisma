@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String  @id @default(cuid())
+  email     String  @unique
+  password  String
+  name      String
+  surname   String
+  avatarUrl String?
+
+  @@map("admin")
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  name      String
+  surname   String?
+  phone     String
+  avatarUrl String?
+  createdAt DateTime  @default(now())
+  address   Address[]
+
+  @@map("user")
+}
+
+model Address {
+  id           String @id @default(cuid())
+  city         String
+  street       String
+  streetNumber Int
+  userId       String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("address")
+}
+
+model Dessert {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String
+  imageUrl    String
+  stock       Int
+  price       Decimal
+  bagId       String
+
+  bag Bag @relation(fields: [bagId], references: [id])
+
+  @@map("dessert")
+}
+
+model Bag {
+  id         String    @id @default(cuid())
+  dessert    Dessert[]
+  totalPrice Decimal
+
+  @@map("bag")
+}
