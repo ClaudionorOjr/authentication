@@ -24,7 +24,6 @@ export class CreateAddressUseCase {
       userId,
     });
 
-    console.log(address);
     await this.addressRepository.create(address);
   }
 }

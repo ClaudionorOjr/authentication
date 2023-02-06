@@ -25,6 +25,7 @@ export class UpdateUserUseCase {
       phone: phone ? phone : user.phone,
     });
 
+    //! Retirar console.log
     console.log(user);
     await this.usersRepository.update(user);
   }

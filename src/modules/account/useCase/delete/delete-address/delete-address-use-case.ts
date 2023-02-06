@@ -1,17 +1,28 @@
-import { NotFoundError } from '../../../../../errors/app-error';
+import {
+  NotFoundError,
+  UnauthorizedError,
+} from '../../../../../errors/app-error';
 import { AddressRepository } from '../../../repositories/address-repository';
+
+interface DeleteAddressRequest {
+  id_address: string;
+  id_user: string;
+}
 
 export class DeleteAddressUseCase {
   constructor(private addressRepository: AddressRepository) {}
 
-  async execute(id: string) {
-    const address = await this.addressRepository.findById(id);
+  async execute({ id_address, id_user }: DeleteAddressRequest) {
+    const address = await this.addressRepository.findById(id_address);
 
-    console.log(address);
     if (!address) {
       throw new NotFoundError('Address does not exists!');
     }
 
-    await this.addressRepository.delete(id);
+    if (address.userId !== id_user) {
+      throw new UnauthorizedError('Unauthorized');
+    }
+
+    await this.addressRepository.delete(id_address);
   }
 }

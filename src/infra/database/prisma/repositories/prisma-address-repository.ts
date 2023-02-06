@@ -14,7 +14,6 @@ export class PrismaAddressRepository implements AddressRepository {
   }
 
   async findById(id: string): Promise<Address | null> {
-    console.log(id);
     const address = await prisma.address.findFirst({
       where: {
         id: {
@@ -31,15 +30,21 @@ export class PrismaAddressRepository implements AddressRepository {
   }
 
   async update(address: Address): Promise<void> {
-    throw new Error('Method not implemented.');
+    const rawAddress = PrismaAddressMapper.toPrisma(address);
+
+    await prisma.address.update({
+      where: {
+        id: address.id,
+      },
+      data: rawAddress,
+    });
   }
 
   async delete(id: string): Promise<void> {
-    console.log('delete: ' + id);
-    // await prisma.address.delete({
-    //   where: {
-    //     id,
-    //   },
-    // });
+    await prisma.address.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

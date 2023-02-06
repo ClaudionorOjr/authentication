@@ -204,7 +204,7 @@ preset: "ts-jest",
 
 ---
 
-- [ ] Autenticação
+- [x] Autenticação
   - [x] Token de autenticação de usuário;
   - [x] Token de autenticação de admin;
 
