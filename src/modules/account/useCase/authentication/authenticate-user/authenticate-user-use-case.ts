@@ -23,10 +23,11 @@ export class AuthenticateUserUseCase {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('Email or password incorrect!');
+      throw new Error('Email or password incorrect! ENTROU AQUI');
     }
 
     const passwordMatch = await compare(password, user.password);
+    console.log(passwordMatch);
 
     if (!passwordMatch) {
       throw new Error('Email or password incorrect!');
@@ -37,7 +38,7 @@ export class AuthenticateUserUseCase {
       process.env.USER_SECRET!,
       {
         subject: user.id,
-        expiresIn: '20s',
+        expiresIn: '1d',
       },
     );
 

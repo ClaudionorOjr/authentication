@@ -91,7 +91,7 @@ $ npm i swagger-ui-express
 $ npm i @types/swagger-ui-express -D
 ```
 
-- [typscript](asd)
+- [typescript](asd)
 
 ```bash
 $ npm i typescript -D
@@ -101,10 +101,7 @@ $ npm i tsx -D
 - [vitest](asd)
 
 ```bash
-$ npm i jest ts-jest ts-node @types/jest -D
-
-# Arquivo de configuração
-$ npx jest --init
+$ npm i vitest -D
 ```
 
 ## Iniciando o projeto
@@ -177,11 +174,8 @@ export default defineConfig({
 ```json
 "scripts": {
     "test": "vitest",
-    "test:watch": "vitest --watch"
   },
 ```
-
-- Alterar
 
 <!-- - Alterar no arquivos `jest.config.ts`:
 
@@ -197,20 +191,39 @@ preset: "ts-jest",
 
 ## Check list
 
-[x] Criação de usuário;  
-[x] Seed de criação de admin;  
-[x] Token de autenticação de usuário;  
-[x] Token de autenticação de admin;  
-[x] Middlewares validação de token de usuário;  
-[x] Middlewares validação de token de admin;  
-[x] Middleware de tratativa de erros;  
-[x] Documentação com Swagger;  
-[] Recuperação de senha;  
-[] Containers no docker para o BD e aplicação;  
-[] Alterar BD para o postgress;
+- [ ] CRUD de Usuário
+  - [x] Criar usuário;
+  - [x] Deletar usuário;
+  - [ ] Atualizar dados de usuário;
 
-- **Futuro**:  
-  [] Login social com Google;
+---
+
+- [ ] CRUD de Admin
+  - [x] Seed de criação de admin;
+  - [ ] Atualizar dados de admin;
+
+---
+
+- [ ] Autenticação
+  - [x] Token de autenticação de usuário;
+  - [x] Token de autenticação de admin;
+
+---
+
+- [x] Middlewares
+  - [x] Middlewares validação de token de usuário;
+  - [x] Middlewares validação de token de admin;
+  - [x] Middleware de tratativa de erros;
+
+---
+
+- [x] Documentação com Swagger;
+- [ ] Recuperação de senha;
+- [ ] Containers no docker para o BD e aplicação;
+- [ ] Alterar BD para o postgress;
+
+- **Futuro**:
+  - [ ] Login social com Google;
 
 <!-- ## Há fazer!
 

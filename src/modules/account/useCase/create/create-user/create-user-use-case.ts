@@ -1,6 +1,7 @@
-import { UsersRepository } from '../../repositories/users-repository';
-import { User } from '../../entitties/user';
+import { UsersRepository } from '../../../repositories/users-repository';
+import { User } from '../../../entitties/user';
 import { hash } from 'bcryptjs';
+import { BadRequestError } from '../../../../../errors/app-error';
 
 interface CreateUserRequest {
   name: string;
@@ -27,7 +28,7 @@ export class CreateUserUseCase {
     const userExists = await this.usersRepository.findByEmail(email);
 
     if (userExists) {
-      throw new Error('User already exists!');
+      throw new BadRequestError('User already exists!');
     }
 
     const passwordHash = await hash(password, 10);
@@ -43,29 +44,5 @@ export class CreateUserUseCase {
     await this.usersRepository.create(user);
 
     return { user };
-
-    /* ----- */
-    // const userExists = await prisma.user.findUnique({
-    //   where: {
-    //     email,
-    //   },
-    // });
-
-    // if (userExists) {
-    //   throw new BadRequestError('User already exists!');
-    // }
-
-    // const passwordHash = await hash(password, 10);
-
-    // await prisma.user.create({
-    //   data: {
-    //     name,
-    //     surname,
-    //     email,
-    //     password: passwordHash,
-    //     phone,
-    //     avatarUrl,
-    //   },
-    // });
   }
 }

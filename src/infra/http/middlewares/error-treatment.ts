@@ -2,19 +2,17 @@ import { NextFunction, Request, Response } from 'express';
 import { AppError } from '../../../errors/app-error';
 
 export function errorTreatment(
-  err: Error,
+  err: Error & Partial<AppError>,
   request: Request,
   response: Response,
   next: NextFunction,
 ) {
-  if (err instanceof AppError) {
-    return response.status(err.statusCode).json({
-      message: err.message,
-    });
-  }
+  const statusCode = err.statusCode ?? 500;
+  const message = err.statusCode
+    ? err.message
+    : `Internal Server Error - ${err.message}`;
 
-  return response.status(500).json({
-    status: 'error',
-    message: `Internal Server error - ${err.message}`,
+  return response.status(statusCode).json({
+    message,
   });
 }

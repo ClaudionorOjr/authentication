@@ -25,7 +25,7 @@ export function ensureAuthenticateUser(
     request.id_user = sub;
 
     return next();
-  } catch (error) {
+  } catch {
     throw new UnauthorizedError('Token invalid!');
   }
 }

@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs';
 import { prisma } from '../../infra/database/prisma/prisma-client';
 
+//! CORRIGIR ESSE SEED!
 async function main() {
   const passwordHash = await hash(process.env.SEED_PASSWORD!, 10);
 
