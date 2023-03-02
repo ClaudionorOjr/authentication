@@ -1,17 +1,11 @@
-import { hash } from 'bcryptjs';
-import { prisma } from '../../infra/database/prisma/prisma-client';
+import { createAdminUseCase } from '../../modules/account/useCase/create/create-admin';
 
-//! CORRIGIR ESSE SEED!
 async function main() {
-  const passwordHash = await hash(process.env.SEED_PASSWORD!, 10);
-
-  await prisma.admin.create({
-    data: {
-      name: process.env.SEED_NAME!,
-      surname: process.env.SEED_SURNAME!,
-      email: process.env.SEED_EMAIL!,
-      password: passwordHash,
-    },
+  await createAdminUseCase.execute({
+    name: process.env.SEED_NAME!,
+    surname: process.env.SEED_SURNAME!,
+    email: process.env.SEED_EMAIL!,
+    password: process.env.SEED_PASSWORD!,
   });
 }
 

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { AppError } from '../../../errors/app-error';
+import { HttpError } from '../../../errors/app-error';
 
 export function errorTreatment(
-  err: Error & Partial<AppError>,
+  err: Error & Partial<HttpError>,
   request: Request,
   response: Response,
   next: NextFunction,

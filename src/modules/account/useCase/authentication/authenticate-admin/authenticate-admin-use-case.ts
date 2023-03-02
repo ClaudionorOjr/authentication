@@ -1,20 +1,18 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { prisma } from '../../../../../infra/database/prisma/prisma-client';
 import { BadRequestError } from '../../../../../errors/app-error';
+import { AdminRepository } from '../../../repositories/admin-repository';
 
-interface IAuthenticateAdmin {
+interface AuthenticateAdminRequest {
   email: string;
   password: string;
 }
 
 export class AuthenticateAdminUseCase {
-  async execute({ email, password }: IAuthenticateAdmin) {
-    const admin = await prisma.admin.findUnique({
-      where: {
-        email,
-      },
-    });
+  constructor(private adminRepository: AdminRepository) {}
+
+  async execute({ email, password }: AuthenticateAdminRequest) {
+    const admin = await this.adminRepository.findyByEmail(email);
 
     if (!admin) {
       throw new BadRequestError('Email or password incorrect!');
@@ -31,6 +29,6 @@ export class AuthenticateAdminUseCase {
       expiresIn: '1d',
     });
 
-    return token;
+    return { token };
   }
 }

@@ -29,20 +29,27 @@ $ npm run dev
 
 ## Tecnologias
 
-- [bcryptjs](asd)
+<details>
+  <summary> <a href=''>bcryptjs</a> </summary>
 
 ```bash
 $ npm i bcryptjs
 $ npm i @types/bcryptjs -D
 ```
 
-- [dotenv](asd)
+</details>
+
+<details>
+  <summary> <a href=''>dotenv</a> </summary>
 
 ```bash
 $ npm i dotenv
 ```
 
-- [express](asd)
+</details>
+
+<details>
+  <summary> <a href=''>express</a> </summary>
 
 ```bash
 $ npm i express
@@ -51,6 +58,8 @@ $ npm i @types/express -D
 # Tratativa de erros assíncronos pelo express
 $ npm i express-async-errors
 ```
+
+</details>
 
 <!-- - [jest](asd)
 
@@ -61,20 +70,27 @@ $ npm i jest ts-jest ts-node @types/jest -D
 $ npx jest --init
 ``` -->
 
-- [jsonwebtoken](asd)
+<details>
+  <summary> <a href=''>jsonwebtoken</a> </summary>
 
 ```bash
 $ npm i jsonwebtoken
 $ npm i @types/jsonwebtoken -D
 ```
 
-- [prettier](asd)
+</details>
+
+<details>
+  <summary> <a href=''>prettier</a> </summary>
 
 ```bash
 $ npm i prettier -D
 ```
 
-- [prisma](asd)
+</details>
+
+<details>
+  <summary> <a href=''>prisma</a> </summary>
 
 ```bash
 $ npm i prisma -D
@@ -84,25 +100,38 @@ $ npm i @prisma/client
 $ npm i prisma-erd-generator @mermaid-js/mermaid-cli -D
 ```
 
-- [swagger](asd)
+</details>
+
+<details>
+  <summary> <a href=''>swagger</a> </summary>
 
 ```bash
 $ npm i swagger-ui-express
 $ npm i @types/swagger-ui-express -D
 ```
 
-- [typescript](asd)
+</details>
+
+<details>
+  <summary> <a href=''>typescript</a> </summary>
 
 ```bash
 $ npm i typescript -D
 $ npm i tsx -D
 ```
 
-- [vitest](asd)
+</details>
+
+<details>
+  <summary> <a href=''>vitest</a> </summary>
 
 ```bash
 $ npm i vitest -D
 ```
+
+</details>
+
+---
 
 ## Iniciando o projeto
 
@@ -191,10 +220,7 @@ preset: "ts-jest",
 
 ## Check list
 
-- [ ] CRUD de Usuário
-  - [x] Criar usuário;
-  - [x] Deletar usuário;
-  - [ ] Atualizar dados de usuário;
+### DOING
 
 ---
 
@@ -204,11 +230,22 @@ preset: "ts-jest",
 
 ---
 
+### DONE
+
+- [x] CRUD de Usuário
+
+  - [x] Criar usuário;
+  - [x] Deletar usuário;
+  - [x] Atualizar dados de usuário;
+
+  ***
+
 - [x] Autenticação
+
   - [x] Token de autenticação de usuário;
   - [x] Token de autenticação de admin;
 
----
+  ***
 
 - [x] Middlewares
   - [x] Middlewares validação de token de usuário;
@@ -217,7 +254,10 @@ preset: "ts-jest",
 
 ---
 
-- [x] Documentação com Swagger;
+### TO DO
+
+- [ ] Instalar Zod para validação dos dados das requisições;
+- [ ] Atualizar documentação Swagger;
 - [ ] Recuperação de senha;
 - [ ] Containers no docker para o BD e aplicação;
 - [ ] Alterar BD para o postgress;

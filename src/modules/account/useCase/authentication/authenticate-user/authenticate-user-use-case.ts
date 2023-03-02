@@ -1,7 +1,5 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { prisma } from '../../../../../infra/database/prisma/prisma-client';
-import { BadRequestError } from '../../../../../errors/app-error';
 import { UsersRepository } from '../../../repositories/users-repository';
 
 interface AuthenticateUserRequest {

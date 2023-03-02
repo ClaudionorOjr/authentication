@@ -2,6 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { UnauthorizedError } from '../../../errors/app-error';
 
+interface IPayload {
+  sub: string;
+}
+
 export function ensureAuthenticateAdmin(
   request: Request,
   response: Response,
@@ -16,10 +20,12 @@ export function ensureAuthenticateAdmin(
   const [, token] = authHeader.split(' ');
 
   try {
-    verify(token, process.env.ADMIN_SECRET!);
+    const { sub } = verify(token, process.env.ADMIN_SECRET!) as IPayload;
+
+    request.id_admin = sub;
 
     return next();
-  } catch (error) {
+  } catch {
     throw new UnauthorizedError('Token invalid!');
   }
 }
